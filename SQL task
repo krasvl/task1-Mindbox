@@ -1,0 +1,53 @@
+CREATE TABLE Products
+(
+	Id INT PRIMARY KEY IDENTITY,
+	ProductName NVARCHAR(20)
+)
+
+CREATE TABLE Categories
+(
+	Id INT PRIMARY KEY IDENTITY,
+	CategorieName NVARCHAR(20)
+)
+
+CREATE TABLE ProductCategories
+(
+	Id INT PRIMARY KEY IDENTITY,
+	CategorieId INT NOT NULL REFERENCES Categories (Id), 
+	ProductId INT NOT NULL REFERENCES Products (Id)
+)
+
+INSERT INTO Products VALUES
+('Product1'),
+('Product2'),
+('Product3'),
+('Product4'),
+('Product5'),
+('Product6'),
+('Product7'),
+('Product8'),
+('Product9')
+
+INSERT INTO Categories VALUES
+('Categorie1'),
+('Categorie2'),
+('Categorie3'),
+('Categorie4'),
+('Categorie5')
+
+INSERT INTO ProductCategories VALUES
+(1,1),
+(1,2),
+(2,3),
+(2,4),
+(3,5),
+(3,6),
+(4,7),
+(4,8),
+(5,9)
+
+SELECT product.ProductName, categorie.CategorieName 
+FROM Products product 
+LEFT JOIN ProductCategories productCategorie ON product.Id = productCategorie.ProductId
+INNER JOIN Categories categorie ON categorie.Id = productCategorie.CategorieId
+ORDER BY product.ProductName
